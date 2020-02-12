@@ -1,0 +1,109 @@
+# dhcpd.conf
+
+# Sample configuration file for ISC dhcpd
+#
+
+# option definitions common to all supported networks...
+#option domain-name "calligan.internal";
+#option domain-name-servers ns1.calligan.internal;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+# Use this to enble / disable dynamic dns updates globally.
+#ddns-update-style none;
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+#authoritative;
+
+# Use this to send dhcp log messages to a different log file (you also
+# have to hack syslog.conf to complete the redirection).
+log-facility local7;
+
+# This declaration allows BOOTP clients to get dynamic addresses,
+# which we don't really recommend.
+
+# A slightly different configuration for an internal subnet.
+subnet 192.168.100.0 netmask 255.255.255.0 {
+  range 192.168.100.2 192.168.100.253;
+  option domain-name-servers 192.168.100.1;
+  option domain-search "42.calligan.name";
+  #option routers 192.168.100.254;
+  default-lease-time 600;
+  max-lease-time 7200;
+  next-server 192.168.100.1;
+  filename "pxelinux/pxelinux.0";
+}
+
+# Hosts which require special configuration options can be listed in
+# host statements.   If no address is specified, the address will be
+# allocated dynamically (if possible), but the host-specific information
+# will still come from the host declaration.
+
+host bootstrap.43 {
+  hardware ethernet 00:0c:19:c4:51:68;
+  option host-name "bootstrap.test.calligan.name";
+  option domain-search "test.calligan.name";
+  option routers 192.168.100.1;
+  option domain-name-servers 192.168.100.1;
+  fixed-address 192.168.100.2;
+}
+
+host master1.43 {
+  hardware ethernet 00:0c:19:b4:cc:72;
+  option host-name "master1.test.calligan.name";
+  option domain-search "test.calligan.name";
+  option routers 192.168.100.1;
+  option domain-name-servers 192.168.100.1;
+  fixed-address 192.168.100.3;
+}
+
+host master2.43 {
+  hardware ethernet 00:0c:19:93:ff:ed;
+  option host-name "master2.test.calligan.name";
+  option domain-search "test.calligan.name";
+  option routers 192.168.100.1;
+  option domain-name-servers 192.168.100.1;
+  fixed-address 192.168.100.4;
+}
+
+host master3.43 {
+  hardware ethernet 00:0c:19:c9:ad:57;
+  option host-name "master3.test.calligan.name";
+  option domain-search "test.calligan.name";
+  option routers 192.168.100.1;
+  option domain-name-servers 192.168.100.1;
+  fixed-address 192.168.100.5;
+}
+
+host node11.43 {
+  hardware ethernet 00:0c:19:53:6c:da;
+  option host-name "node1.test.calligan.name";
+  option domain-search "test.calligan.name";
+  option routers 192.168.100.1;
+  option domain-name-servers 192.168.100.1;  
+  fixed-address 192.168.100.6;
+}
+
+host node2.43 {
+  hardware ethernet 00:0c:19:3d:61:b6;
+  option host-name "node2.test.calligan.name";
+  option domain-search "test.calligan.name";
+  option routers 192.168.100.1;
+  option domain-name-servers 192.168.100.1;
+  fixed-address 192.168.100.7;
+}
+
+# Fixed IP addresses can also be specified for hosts.   These addresses
+# should not also be listed as being available for dynamic assignment.
+# Hosts for which fixed IP addresses have been specified can boot using
+# BOOTP or DHCP.   Hosts for which no fixed address is specified can only
+# be booted with DHCP, unless there is an address range on the subnet
+# to which a BOOTP client is connected which has the dynamic-bootp flag
+# set.
+host fantasia {
+  hardware ethernet 08:00:07:26:c0:a5;
+  fixed-address fantasia.fugue.com;
+}
+

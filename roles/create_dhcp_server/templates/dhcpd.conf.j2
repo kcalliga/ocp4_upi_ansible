@@ -1,0 +1,73 @@
+# dhcpd.conf
+
+# Sample configuration file for ISC dhcpd
+#
+
+# option definitions common to all supported networks...
+#option domain-name "calligan.internal";
+#option domain-name-servers ns1.calligan.internal;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+# Use this to enble / disable dynamic dns updates globally.
+#ddns-update-style none;
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+#authoritative;
+
+# Use this to send dhcp log messages to a different log file (you also
+# have to hack syslog.conf to complete the redirection).
+log-facility local7;
+
+# This declaration allows BOOTP clients to get dynamic addresses,
+# which we don't really recommend.
+
+# Hosts which require special configuration options can be listed in
+# host statements.   If no address is specified, the address will be
+# allocated dynamically (if possible), but the host-specific information
+# will still come from the host declaration.
+
+{% for item in groups['bootstrap'] %}
+ 
+host "{{ hostvars[item]['inventory_hostname'] }}" {
+  hardware "{{ hostvars[item]['mac_address'] }}";
+  option host-name "{{ hostvars[item]['inventory_hostname'] }}";
+  option domain_search "{{ toplevel_domain }}"
+  option routers "{{ gateway_ip }}"
+  option domain-name-servers "{{ support_server_ip }}"
+  fixed-address "{{ hostvars[item]['ip_address'] }}"
+  next-server "{{ support_server_ip }}"
+  filename "pxelinux/pxelinux.0";
+}
+{% endfor %}
+
+{% for item in groups['masters'] %}
+
+host "{{ hostvars[item]['inventory_hostname'] }}" {
+  hardware "{{ hostvars[item]['mac_address'] }}";
+  option host-name "{{ hostvars[item]['inventory_hostname'] }}";
+  option domain_search "{{ toplevel_domain }}"
+  option routers "{{ gateway_ip }}"
+  option domain-name-servers "{{ support_server_ip }}"
+  fixed-address "{{ hostvars[item]['ip_address'] }}"
+  next-server "{{ support_server_ip }}"
+  filename "pxelinux/pxelinux.0";
+}
+{% endfor %}
+
+{% for item in groups['workers'] %}
+
+host "{{ hostvars[item]['inventory_hostname'] }}" {
+  hardware "{{ hostvars[item]['mac_address'] }}";
+  option host-name "{{ hostvars[item]['inventory_hostname'] }}";
+  option domain_search "{{ toplevel_domain }}"
+  option routers "{{ gateway_ip }}"
+  option domain-name-servers "{{ support_server_ip }}"
+  fixed-address "{{ hostvars[item]['ip_address'] }}"
+  next-server "{{ support_server_ip }}"
+  filename "pxelinux/pxelinux.0";
+}
+{% endfor %}
+

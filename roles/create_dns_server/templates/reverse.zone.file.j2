@@ -1,0 +1,12 @@
+$TTL	86400 ; 24 hours could have been written as 24h or 1d
+; $TTL used for all RRs without explicit TTL value
+@ IN  SOA {{ support_server_fqdn }}. hostmaster.{{ toplevel_domain }}. (
+			      2020021101 ; serial
+			      3H ; refresh
+			      15 ; retry
+			      1w ; expire
+			      3h ; nxdomain ttl
+			     )
+       IN  NS     {{ support_server_fqdn }}. ; in the domain
+; server host definitions
+{{ last_octet_support_ip }}	IN	PTR	{{ support_server_fqdn }}.

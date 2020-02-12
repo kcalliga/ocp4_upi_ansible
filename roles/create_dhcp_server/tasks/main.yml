@@ -1,0 +1,28 @@
+---
+# tasks file for build_support_server
+
+- name: Install DHCPD
+  yum:
+    name: dhcp
+    state: latest
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Setup Default dhcpd.conf file
+  template:
+    src: templates/dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Make sure DHCPD Is Started and Enabled
+  systemd:
+    state: started
+    name: dhcpd
+    enabled: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+

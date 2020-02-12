@@ -1,0 +1,15 @@
+#! /bin/bash
+
+export OCP_RELEASE="{{ ocp_release }}";
+export LOCAL_REGISTRY="{{ local_docker_registry_url }}:5000";
+export LOCAL_REPOSITORY="{{ local_repository }}";
+export PRODUCT_REPO="{{ product_repo }}";
+export LOCAL_SECRET_JSON="{{ local_secret_json_filename }}";
+export RELEASE_NAME="{{ release_name }}";
+
+oc adm -a ${LOCAL_SECRET_JSON} release mirror --insecure=true \
+     --from=quay.io/${PRODUCT_REPO}/${RELEASE_NAME}:${OCP_RELEASE} \
+     --to=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} \
+     --to-release-image=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}
+
+oc adm -a ${LOCAL_SECRET_JSON} release extract --insecure --command=openshift-install "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}"

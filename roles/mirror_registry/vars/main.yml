@@ -1,0 +1,10 @@
+---
+# vars file for mirror_registry
+
+local_docker_registry_url: docker-registry.calligan.name
+ocp_release: '4.2.0'         
+local_registry: '{{ local_docker_registry_url }}:5000'      
+local_repository: 'ocp4/openshift4'      
+product_repo: 'openshift-release-dev'      
+local_secret_json_filename: 'pull-secret.json'      
+release_name: "ocp-release"

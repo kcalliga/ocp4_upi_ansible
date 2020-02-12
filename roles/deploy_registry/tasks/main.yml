@@ -1,0 +1,105 @@
+---
+# tasks file for 42_ansible
+
+- name: install the latest version of httpd-tools
+  yum:
+    name: httpd-tools
+    state: latest
+
+- name: install the latest version of podman
+  yum:
+    name: podman
+    state: latest
+
+- name: install pyOpenSSL
+  yum:
+    name: pyOpenSSL
+    state: latest
+
+- name: Create /opt/registry/auth Directory
+  file:
+    path: /opt/registry/auth
+    state: directory
+    mode: 0755
+    owner: keith
+
+- name: Create /opt/registry/certs Directory
+  file:
+    path: /opt/registry/certs
+    state: directory
+    mode: 0755
+    owner: keith
+
+- name: Create /opt/registry/data Directory
+  file:
+    path: /opt/registry/data
+    state: directory
+    mode: 0755
+    owner: keith
+
+- name: Generate an OpenSSL private key (4096 bits)
+  openssl_privatekey:
+    path: /opt/registry/certs/domain.key
+    size: 4096
+
+- name: Generate an OpenSSL Certificate Signing Request with Subject information
+  openssl_csr:
+    path: /opt/registry/certs/domain.csr
+    privatekey_path: /opt/registry/certs/domain.key
+    country_name: "{{ CSR_country_name }}"
+    organizational_unit_name: "{{ CSR_organizational_unit_name }}"
+    organization_name: "{{ CSR_organization_name }}"
+    email_address: "{{ CSR_email_address }}"
+    common_name: "{{ local_docker_registry_url }}"
+    state_or_province_name: "{{ CSR_state }}"
+    locality_name: "{{ CSR_locality }}"
+
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: /opt/registry/certs/domain.crt
+    privatekey_path: /opt/registry/certs/domain.key
+    csr_path: /opt/registry/certs/domain.csr
+    provider: selfsigned
+
+#- name: Create htpasswd username and password for 4.2 Install Registry Mirror
+#  htpasswd:
+#    path: /opt/registry/auth/htpasswd
+#    name: "{{ htpasswd_docker_user }}"
+#    password: "{{ htpasswd_docker_password }}"
+#    #crypt_scheme: md5_crypt
+
+- name: Create htpasswd username and password for 4.2 Install Registry Mirror
+  shell:
+    cmd: htpasswd -bBc /opt/registry/auth/htpasswd {{ htpasswd_docker_user }} {{ htpasswd_docker_password }}
+
+- name: Run Registry Container
+  shell:
+    cmd: podman run --name mirror-registry -p 5000:5000 -v /opt/registry/data:/var/lib/registry:z -v /opt/registry/auth:/auth:z -e "REGISTRY_AUTH=htpasswd" -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd -v /opt/registry/certs:/certs:z -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key -d docker.io/library/registry:2
+  become: yes
+  become_user: root
+  become_method: sudo
+
+#- name: Enabling Port 5000 on Public Zone
+#  firewalld:
+#    port: 5000/tcp
+#    permanent: yes
+#    zone: public
+#    immediate: yes
+#    state: enabled
+
+#- name: Enabling Port 5000 on Internal Zone
+#  firewalld:
+#    port: 5000/tcp
+#    permanent: yes
+#    zone: internal
+#    state: enabled
+#    immediate: yes
+
+- name: Copy Self-Signed Cert to Anchors Directory
+  shell:
+    cmd: cp /opt/registry/certs/domain.crt /etc/pki/ca-trust/source/anchors/
+
+- name: Trust the CA of the Self-Signed Cert
+  shell:
+    cmd: update-ca-trust
+

@@ -1,0 +1,36 @@
+---
+# vars file for default_vars
+forward_dns_zone: 'calligan.internal'
+reverse_dns_zone: "100.168.192.in-addr.arpa"
+support_server_ip: 192.168.100.1
+support_server_fqdn: support.calligan.internal
+support_server_short_name: support
+public_dns_ip: 8.8.8.8
+internal_ip_subnet: 192.168.100.0/24
+toplevel_domain: calligan.internal
+last_octet_support_ip: 1
+cluster_basedomain: calligan.name
+cluster_name: test
+rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.0/
+installer_initramfs_file: rhcos-4.2.0-x86_64-installer-initramfs.img
+installer_kernel_file: rhcos-4.2.0-x86_64-installer-kernel
+installer_image_file: rhcos-4.2.0-x86_64-metal-bios.raw.gz
+gateway_ip: 192.168.100.1
+oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.2/
+oc_client_url: openshift-client-linux-4.2.16.tar.gz
+oc_install_file: openshift-install-linux-4.2.16.tar.gz
+CSR_country_name: US
+CSR_organization_name: "Keith Calligan"
+CSR_email_address: kcalliga@redhat.com
+CSR_state: Pennsylvania
+CSR_locality: Levittown
+CSR_organizational_unit_name: None
+htpasswd_docker_user: keith
+local_docker_registry_url: docker-registry.calligan.name
+ocp_release: '4.2.0'         
+local_registry: '{{ local_docker_registry_url }}:5000'      
+local_repository: 'ocp4/openshift4'      
+product_repo: 'openshift-release-dev'      
+local_secret_json_filename: 'pull-secret.json'      
+release_name: "ocp-release"
+
