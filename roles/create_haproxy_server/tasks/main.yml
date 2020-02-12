@@ -1,0 +1,81 @@
+---
+# tasks file for create_http_server
+
+- name: Install HAPROXY
+  yum:
+    name: haproxy
+    state: latest
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Make sure HAPROXY Is Started and Enabled
+  systemd:
+    state: started
+    name: haproxy
+    enabled: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Enabling Port 6443/TCP on Public Zone
+  firewalld:
+    port: 6443/tcp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 6443/TCP on Internal Zone
+  firewalld:
+    port: 6443/tcp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes
+
+- name: Enabling Port 22623/TCP on Public Zone
+  firewalld:
+    port: 22623/tcp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 22623/TCP on Internal Zone
+  firewalld:
+    port: 22623/tcp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes
+
+- name: Enabling Port 443/TCP on Public Zone
+  firewalld:
+    port: 443/tcp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 443/TCP on Internal Zone
+  firewalld:
+    port: 443/tcp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes
+
+- name: Generate HAPROXY Config
+  template:
+    src: templates/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: Make sure HAPROXY Is Reloaded
+  systemd:
+    state: reloaded
+    name: haproxy
+    enabled: yes
+  become: yes
+  become_user: root
+  become_method: sudo

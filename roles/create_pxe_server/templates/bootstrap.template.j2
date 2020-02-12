@@ -1,0 +1,6 @@
+DEFAULT pxeboot
+TIMEOUT 20
+PROMPT 0
+LABEL pxeboot
+    KERNEL {{ installer_kernel_file }}
+    APPEND ip=dhcp rd.neednet=1 initrd={{ installer_initramfs_file }} console=tty0 console=ttyS0 coreos.inst=yes coreos.inst.install_dev=sda coreos.inst.image_url=http://{{ support_server_ip }}/{{ installer_image_file }} coreos.inst.ignition_url=http://{{ support_server_ip }}/bootstrap.ign 

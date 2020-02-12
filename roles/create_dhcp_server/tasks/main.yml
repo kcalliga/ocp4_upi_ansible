@@ -26,3 +26,28 @@
   become_user: root
   become_method: sudo
 
+- name: Enabling Port 67/UDP on Public Zone
+  firewalld:
+    port: 67/udp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 67/UDP on Internal Zone
+  firewalld:
+    port: 67/udp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes
+
+- name: Make sure DHCPD Is Reloaded
+  systemd:
+    state: restarted
+    name: dhcpd
+    enabled: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+

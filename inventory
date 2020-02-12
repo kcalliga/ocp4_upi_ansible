@@ -1,11 +1,11 @@
 [masters]
-master1.calligan.internal mac_address= ip_address=192.168.100.3 short_name=master1
-master2.calligan.internal mac_address= ip_address=192.168.100.4 short_name=master2
-master3.calligan.internal mac_address= ip_address=192.168.100.5 short_name=master3
+master1.calligan.internal mac_address=00:0c:19:b4:cc:72 ip_address=192.168.100.3 short_name=master1
+master2.calligan.internal mac_address=00:0c:19:93:ff:ed ip_address=192.168.100.4 short_name=master2
+master3.calligan.internal mac_address=00:0c:19:c9:ad:57 ip_address=192.168.100.5 short_name=master3
 
 [workers]
-worker1.calligan.internal mac_address= ip_address=192.168.100.6 short_name=worker1
-worker2.calligan.internal mac_address= ip_address=192.168.100.7 short_name=worker2
+node1.calligan.internal mac_address=00:0c:19:53:6c:da ip_address=192.168.100.6 short_name=worker1
+node2.calligan.internal mac_address=00:0c:19:3d:61:b6 ip_address=192.168.100.7 short_name=worker2
 
 [support]
 support.calligan.internal mac_address= ip_address=192.168.100.1 short_name=support 

@@ -1,0 +1,35 @@
+---
+# tasks file for create_http_server
+
+- name: Install Bind
+  yum:
+    name: httpd
+    state: latest
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Make sure HTTPD Is Started and Enabled
+  systemd:
+    state: started
+    name: httpd
+    enabled: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Enabling Port 80/TCP on Public Zone
+  firewalld:
+    port: 53/tcp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 80/TCP on Internal Zone
+  firewalld:
+    port: 53/tcp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes

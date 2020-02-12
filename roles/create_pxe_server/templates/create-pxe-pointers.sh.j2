@@ -1,0 +1,11 @@
+{% for item in groups['masters'] %}
+cp /tmp/masters.template /var/lib/tftpboot/pxelinux/pxelinux.cfg/01-{{ hostvars[item]['mac_address'] }};
+{% endfor %}
+
+{% for item in groups['bootstrap'] %}
+cp /tmp/bootstrap.template /var/lib/tftpboot/pxelinux/pxelinux.cfg/01-{{ hostvars[item]['mac_address'] }};
+{% endfor %}
+
+{% for item in groups['workers'] %}
+cp /tmp/workers.template /var/lib/tftpboot/pxelinux/pxelinux.cfg/01-{{ hostvars[item]['mac_address'] }};
+{% endfor %}

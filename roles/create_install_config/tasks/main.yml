@@ -1,0 +1,9 @@
+---
+# tasks file for create_install_config
+
+- name: Create install-config.yaml template
+  template:
+    src: templates/install-config.yaml.j2
+    dest: /home/keith/install-config.yaml
+
+

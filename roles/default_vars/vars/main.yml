@@ -16,7 +16,7 @@ installer_initramfs_file: rhcos-4.2.0-x86_64-installer-initramfs.img
 installer_kernel_file: rhcos-4.2.0-x86_64-installer-kernel
 installer_image_file: rhcos-4.2.0-x86_64-metal-bios.raw.gz
 gateway_ip: 192.168.100.1
-oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.2/
+oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.2.16/
 oc_client_url: openshift-client-linux-4.2.16.tar.gz
 oc_install_file: openshift-install-linux-4.2.16.tar.gz
 CSR_country_name: US
@@ -33,4 +33,9 @@ local_repository: 'ocp4/openshift4'
 product_repo: 'openshift-release-dev'      
 local_secret_json_filename: 'pull-secret.json'      
 release_name: "ocp-release"
+dhcp_subnet: 192.168.100.0
+dhcp_start_ip: 192.168.100.2
+dhcp_end_ip: 192.168.100.252
+dhcp_netmask: 255.255.255.0
+core_ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVcd+iCYI3SASwnV5Twz1TwUL466Hiw3vOvrw1q9Y96GiEAWZSUMPzLmBEqp5eyml2g4m1Szqy9uIa9B7JiQFvC0748TCoXjQa/zf2PfzfpLh0w7hdQSKr/aBbPYe5+jZyD3sSEp/Zytdgq/RO7MYEbM1WMSteB8auo0K33gFiMTFEvfNXec76pSyCj47KCoolihfp1D8Go8023wwZ38Z6KOCanGhAtq0UZq0rHFPc7qO19xpieoKb+0qMSZwr+2018Z+3RbT07mskwqsv1HV8i2wfdZ6z7unSSuD8XOYEWDGSG3muvrpXLUmwWB+PU0GCpTDj+W4HSf3ANcOaWnd3 core@support.calligan.internal'
 

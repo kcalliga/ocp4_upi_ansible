@@ -29,44 +29,50 @@ log-facility local7;
 # allocated dynamically (if possible), but the host-specific information
 # will still come from the host declaration.
 
+subnet {{ dhcp_subnet }} netmask {{ dhcp_netmask }} {
+  range dynamic-bootp {{ dhcp_start_ip }} {{ dhcp_end_ip }};
+  option broadcast-address {{ support_server_ip }};
+}
+
+
 {% for item in groups['bootstrap'] %}
  
-host "{{ hostvars[item]['inventory_hostname'] }}" {
-  hardware "{{ hostvars[item]['mac_address'] }}";
+host {{ hostvars[item]['inventory_hostname'] }} {
+  hardware ethernet {{ hostvars[item]['mac_address'] }};
   option host-name "{{ hostvars[item]['inventory_hostname'] }}";
-  option domain_search "{{ toplevel_domain }}"
-  option routers "{{ gateway_ip }}"
-  option domain-name-servers "{{ support_server_ip }}"
-  fixed-address "{{ hostvars[item]['ip_address'] }}"
-  next-server "{{ support_server_ip }}"
+  option domain-search "{{ toplevel_domain }}";
+  option routers {{ gateway_ip }};
+  option domain-name-servers {{ support_server_ip }};
+  fixed-address {{ hostvars[item]['ip_address'] }};
+  next-server {{ support_server_ip }};
   filename "pxelinux/pxelinux.0";
 }
 {% endfor %}
 
 {% for item in groups['masters'] %}
 
-host "{{ hostvars[item]['inventory_hostname'] }}" {
-  hardware "{{ hostvars[item]['mac_address'] }}";
+host {{ hostvars[item]['inventory_hostname'] }} {
+  hardware ethernet {{ hostvars[item]['mac_address'] }};
   option host-name "{{ hostvars[item]['inventory_hostname'] }}";
-  option domain_search "{{ toplevel_domain }}"
-  option routers "{{ gateway_ip }}"
-  option domain-name-servers "{{ support_server_ip }}"
-  fixed-address "{{ hostvars[item]['ip_address'] }}"
-  next-server "{{ support_server_ip }}"
+  option domain-search "{{ toplevel_domain }}";
+  option routers {{ gateway_ip }};
+  option domain-name-servers {{ support_server_ip }};
+  fixed-address {{ hostvars[item]['ip_address'] }};
+  next-server {{ support_server_ip }};
   filename "pxelinux/pxelinux.0";
 }
 {% endfor %}
 
 {% for item in groups['workers'] %}
 
-host "{{ hostvars[item]['inventory_hostname'] }}" {
-  hardware "{{ hostvars[item]['mac_address'] }}";
+host {{ hostvars[item]['inventory_hostname'] }} {
+  hardware ethernet {{ hostvars[item]['mac_address'] }};
   option host-name "{{ hostvars[item]['inventory_hostname'] }}";
-  option domain_search "{{ toplevel_domain }}"
-  option routers "{{ gateway_ip }}"
-  option domain-name-servers "{{ support_server_ip }}"
-  fixed-address "{{ hostvars[item]['ip_address'] }}"
-  next-server "{{ support_server_ip }}"
+  option domain-search "{{ toplevel_domain }}";
+  option routers {{ gateway_ip }};
+  option domain-name-servers {{ support_server_ip }};
+  fixed-address {{ hostvars[item]['ip_address'] }};
+  next-server {{ support_server_ip }};
   filename "pxelinux/pxelinux.0";
 }
 {% endfor %}

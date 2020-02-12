@@ -1,0 +1,110 @@
+---
+# tasks file for build_support_server
+
+- name: Install TFTP Server
+  yum:
+    name: tftp-server
+    state: latest
+  become: yes
+  become_user: root
+  become_method: sudo
+
+
+- name: Install syslinux-tftpboot
+  yum:
+    name: syslinux-tftpboot
+    state: latest
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Create /var/lib/tftpboot/pxelinux Directory
+  file:
+    path: /var/lib/tftpboot/pxelinux
+    state: directory
+    mode: 0755
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Copy pxelinux.0 to /var/lib/tftpboot/pxelinux Directory
+  shell:
+    cmd: cp /var/lib/tftpboot/pxelinux.0 /var/lib/tftpboot/pxelinux
+
+- name: Create /var/lib/tftpboot/pxelinux/pxelinux.cfg Directory
+  file:
+    path: /var/lib/tftpboot/pxelinux/pxelinux.cfg
+    state: directory
+    mode: 0755
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Make sure TFTP Is Started and Enabled
+  systemd:
+    state: started
+    name: tftp
+    enabled: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Enabling Port 69/UDP on Public Zone
+  firewalld:
+    port: 69/udp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 69/UDP on Internal Zone
+  firewalld:
+    port: 69/udp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes
+
+- name: Create Master Template
+  template:
+    src: templates/masters.template.j2
+    dest: /tmp/masters.template
+    mode: 0755
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Create Workers Template
+  template:
+    src: templates/workers.template.j2
+    dest: /tmp/workers.template
+    mode: 0755
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Create BootStrap Template
+  template:
+    src: templates/bootstrap.template.j2
+    dest: /tmp/bootstrap.template
+    mode: 0755
+  become: yes
+  become_user: root
+  become_method: sudo
+
+- name: Setup Script to Make Files with PXE Mac Addresses
+  template:
+    src: templates/create-pxe-pointers.sh.j2
+    dest: /tmp/create-pxe-pointers.sh
+    mode: 0755
+  become: yes
+  become_user: root
+  become_method: sudo 
+
+- name: Replace colons with dashes for PXE Files
+  shell:
+    cmd: sed -i 's/:/-/g' /tmp/create-pxe-pointers.sh
+
+- name: Run Script to Create PXE Template Files
+  shell:
+    cmd: /tmp/create-pxe-pointers.sh   

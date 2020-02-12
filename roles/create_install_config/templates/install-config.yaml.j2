@@ -1,0 +1,30 @@
+apiVersion: v1
+baseDomain: {{ cluster_basedomain }}
+compute:
+- hyperthreading: Enabled   
+  name: worker
+  replicas: 0 
+controlPlane:
+  hyperthreading: Enabled   
+  name: master 
+  replicas: 3 
+metadata:
+  name: {{ cluster_name }}
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14 
+    hostPrefix: 23 
+  networkType: OpenShiftSDN
+  serviceNetwork: 
+  - 172.30.0.0/16
+platform:
+  none: {}
+pullSecret: '{{ cluster_pullsecret }}'
+sshKey: '{{ core_ssh_public_key }}'
+imageContentSources:
+- mirrors:
+  - {{ local_docker_registry_url }}:5000/{{ local_repository }}
+  source: quay.io/{{ product_repo }}/ocp-release
+- mirrors:
+  - {{ local_docker_registry_url }}:5000/{{ local_repository }}
+  source: quay.io/{{ product_repo }}/ocp-v4.0-art-dev

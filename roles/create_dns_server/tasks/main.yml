@@ -1,76 +1,76 @@
 ---
-#- name: Install Bind
-#  yum:
-#    name: bind
-#    state: latest
-#  become: yes
-#  become_user: root
-#  become_method: sudo
+- name: Install Bind
+  yum:
+    name: bind
+    state: latest
+  become: yes
+  become_user: root
+  become_method: sudo
 
-#- name: Setup Default named.conf file
-#  template:
-#    src: templates/named.conf.j2
-#    dest: /etc/named.conf
-#    group: named
-#  become: yes
-#  become_user: root
-#  become_method: sudo
+- name: Setup Default named.conf file
+  template:
+    src: templates/named.conf.j2
+    dest: /etc/named.conf
+    group: named
+  become: yes
+  become_user: root
+  become_method: sudo
 
-#- name: Add Forward Zones to named.conf file
-#  blockinfile:
-#    path: /etc/named.conf
-#    marker: "#<!-- {mark} BEGIN ANSIBLE MANAGED FORWARD DNS ZONES -->"
-#    insertafter: "# lastzone"
-#    block: |
-#           zone "{{ item }}" {
-#                type master;
-#                file "{{ item }}.db";
-#                allow-update { localhost; };
-#           }; 
-#  with_items: 
-#    - "{{ forward_dns_zone }}"
-#  become: yes
-#  become_user: root
-#  become_method: sudo
+- name: Add Forward Zones to named.conf file
+  blockinfile:
+    path: /etc/named.conf
+    marker: "#<!-- {mark} BEGIN ANSIBLE MANAGED FORWARD DNS ZONES -->"
+    insertafter: "# lastzone"
+    block: |
+           zone "{{ item }}" {
+                type master;
+                file "{{ item }}.db";
+                allow-update { localhost; };
+           }; 
+  with_items: 
+    - "{{ forward_dns_zone }}"
+  become: yes
+  become_user: root
+  become_method: sudo
 
-#- name: Add Reverse Zones to named.conf file
-#  blockinfile:
-#    path: /etc/named.conf
-#    marker: "#<!-- {mark} BEGIN ANSIBLE MANAGED REVERSE ZONES -->"
-#    insertafter: "#<!-- END BEGIN ANSIBLE MANAGED FORWARD DNS ZONES -->"
-#    block: |
-#           zone "{{ item }}" {
-#                type master;
-#                file "{{ item }}.db";
-#                allow-update { localhost; };
-#           };
-#  with_items:
-#    - "{{ reverse_dns_zone }}"
-#  become: yes
-#  become_user: root
-#  become_method: sudo
+- name: Add Reverse Zones to named.conf file
+  blockinfile:
+    path: /etc/named.conf
+    marker: "#<!-- {mark} BEGIN ANSIBLE MANAGED REVERSE ZONES -->"
+    insertafter: "#<!-- END BEGIN ANSIBLE MANAGED FORWARD DNS ZONES -->"
+    block: |
+           zone "{{ item }}" {
+                type master;
+                file "{{ item }}.db";
+                allow-update { localhost; };
+           };
+  with_items:
+    - "{{ reverse_dns_zone }}"
+  become: yes
+  become_user: root
+  become_method: sudo
 
-#- name: Create Forward Zone Files
-#  template:
-#    src: templates/forward.zone.file.j2
-#    dest: /var/named/{{ item }}.db
-#    group: named
-#  with_items:
-#    - "{{ forward_dns_zone }}"
-#  become: yes
-#  become_user: root
-#  become_method: sudo
+- name: Create Forward Zone Files
+  template:
+    src: templates/forward.zone.file.j2
+    dest: /var/named/{{ item }}.db
+    group: named
+  with_items:
+    - "{{ forward_dns_zone }}"
+  become: yes
+  become_user: root
+  become_method: sudo
 
-#- name: Create Reverse Zone Files
-#  template:
-#    src: templates/reverse.zone.file.j2
-#    dest: /var/named/{{ item }}.db
-#    group: named
-#  with_items:
-#    - "{{ reverse_dns_zone }}"
-#  become: yes
-#  become_user: root
-#  become_method: sudo
+- name: Create Reverse Zone Files
+  template:
+    src: templates/reverse.zone.file.j2
+    dest: /var/named/{{ item }}.db
+    group: named
+  with_items:
+    - "{{ reverse_dns_zone }}"
+  become: yes
+  become_user: root
+  become_method: sudo
 
 - name: Make sure Named Is Started and Enabled
   systemd:
@@ -80,6 +80,38 @@
   become: yes
   become_user: root
   become_method: sudo
+
+- name: Enabling Port 53/TCP on Public Zone
+  firewalld:
+    port: 53/tcp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 53/TCP on Internal Zone
+  firewalld:
+    port: 53/tcp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes
+
+- name: Enabling Port 53/UDP on Public Zone
+  firewalld:
+    port: 53/udp
+    permanent: yes
+    zone: public
+    immediate: yes
+    state: enabled
+
+- name: Enabling Port 53/UDP on Internal Zone
+  firewalld:
+    port: 53/udp
+    permanent: yes
+    zone: internal
+    state: enabled
+    immediate: yes
 
 - name: Add A Records for All Servers
   nsupdate:
@@ -92,15 +124,3 @@
     - "{{ groups['workers'] }}"
     - "{{ groups['support'] }}"
     - "{{ groups['bootstrap'] }}"
-
-#- name: Debug
-#  debug:
-    #server: "localhost"
-    #msg: "{{ forward_dns_zone }}"
-    #msg: "{{ hostvars[item]['short_name'] }}"
-#    msg: "{{ hostvars[item]['ip_address'] }}"
-#  with_items:
-#    - "{{ groups['masters'] }}"
-#    - "{{ groups['workers'] }}"
-#    - "{{ groups['support'] }}"
-#    - "{{ groups['bootstrap'] }}"
