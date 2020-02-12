@@ -1,7 +1,7 @@
 ---
 # tasks file for create_http_server
 
-- name: Install Bind
+- name: Install HTTPD
   yum:
     name: httpd
     state: latest
