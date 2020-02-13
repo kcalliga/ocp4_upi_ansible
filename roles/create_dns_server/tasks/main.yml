@@ -13,7 +13,7 @@
     state: latest
   become: yes
   become_user: root
-  become_method: sud
+  become_method: sudo
 
 
 - name: Setup Default named.conf file
