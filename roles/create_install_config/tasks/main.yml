@@ -1,9 +1,18 @@
 ---
 # tasks file for create_install_config
 
+- name: Get Base64 Encoded Token for Local Registry
+  shell:
+    cmd: echo -n "{{ local_registry_username }}":"{{ local_registry_password }}"| base64 -w0
+  register: localtoken
+
+
+- name: display multiple file contents
+  shell:
+    cmd: cat /opt/registry/certs/domain.crt
+  register: cert
+
 - name: Create install-config.yaml template
   template:
     src: templates/install-config.yaml.j2
     dest: /home/keith/install-config.yaml
-
-

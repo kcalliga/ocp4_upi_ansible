@@ -11,14 +11,14 @@ toplevel_domain: calligan.internal
 last_octet_support_ip: 1
 cluster_basedomain: calligan.name
 cluster_name: test
-rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.0/
-installer_initramfs_file: rhcos-4.2.0-x86_64-installer-initramfs.img
-installer_kernel_file: rhcos-4.2.0-x86_64-installer-kernel
-installer_image_file: rhcos-4.2.0-x86_64-metal-bios.raw.gz
+rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.18/
+installer_initramfs_file: rhcos-4.2.18-x86_64-installer-initramfs.img
+installer_kernel_file: rhcos-4.2.18-x86_64-installer-kernel
+installer_image_file: rhcos-4.2.18-x86_64-metal-bios.raw.gz
 gateway_ip: 192.168.100.1
-oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.2.16/
-oc_client_url: openshift-client-linux-4.2.16.tar.gz
-oc_install_file: openshift-install-linux-4.2.16.tar.gz
+oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.2.18/
+oc_client_url: openshift-client-linux-4.2.18.tar.gz
+oc_install_file: openshift-install-linux-4.2.18.tar.gz
 CSR_country_name: US
 CSR_organization_name: "Keith Calligan"
 CSR_email_address: kcalliga@redhat.com

@@ -19,8 +19,10 @@ networking:
   - 172.30.0.0/16
 platform:
   none: {}
-pullSecret: '{{ cluster_pullsecret }}'
+pullSecret: '{"auths":{"{{ local_docker_registry_url }}:5000": {"auth": "{{ localtoken.stdout }}","email": "{{ email }}"}}}'
 sshKey: '{{ core_ssh_public_key }}'
+additionalTrustBundle: |
+{{ cert.stdout | indent( width=2, indentfirst=True) }}
 imageContentSources:
 - mirrors:
   - {{ local_docker_registry_url }}:5000/{{ local_repository }}
