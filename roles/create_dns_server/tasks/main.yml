@@ -7,6 +7,15 @@
   become_user: root
   become_method: sudo
 
+- name: Install Python-DNS
+  yum:
+    name: python-dns
+    state: latest
+  become: yes
+  become_user: root
+  become_method: sud
+
+
 - name: Setup Default named.conf file
   template:
     src: templates/named.conf.j2
