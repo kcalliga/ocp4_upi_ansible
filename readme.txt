@@ -76,7 +76,8 @@ From here, perform the following steps:
     Locate the mastersSchedulable parameter and set its value to False.
 6.  Run the openshift-install create ignition-configs
 	./openshift-install create ignition-configs --dir=<artifact dir>/<install directory>
-7.  ./openshift-install --dir=<artifact dir>/<install directory> wait-for bootstrap-complete --log-level=info
-8.  This command should exit once the API is available.  You can remove the bootstrap server from your haproxy config when this is finished.
-9.  Following the remaining steps (section called Logging in to the cluster) on the https://docs.openshift.com/container-platform/4.2/installing/installing_bare_metal/installing-bare-metal.html page.
+7.  Copy the ign files (master, bootstrap, and worker) to the root of the webserver (/var/www/html).
+8.  Run ./openshift-install --dir=<artifact dir>/<install directory> wait-for bootstrap-complete --log-level=info
+9.  This command should exit once the API is available.  You can remove the bootstrap server from your haproxy config when this is finished.
+10.  Follow the remaining steps (section called Logging in to the cluster) on the https://docs.openshift.com/container-platform/4.2/installing/installing_bare_metal/installing-bare-metal.html page.
 
