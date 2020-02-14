@@ -19,5 +19,5 @@
 - name: Download OC Linux Client
   get_url:
     url: "{{ oc_files_url }}/{{ oc_client_url }}"
-    dest: "/home/keith/{{ oc_client_url }}"
+    dest: "{{ artifact_dir }}/{{ oc_client_url }}"
 

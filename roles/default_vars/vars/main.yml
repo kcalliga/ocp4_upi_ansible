@@ -38,4 +38,5 @@ dhcp_start_ip: 192.168.100.2
 dhcp_end_ip: 192.168.100.252
 dhcp_netmask: 255.255.255.0
 dhcp_broadcast_address: 192.168.100.255
+artifact_dir=/home/keith
 core_ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVcd+iCYI3SASwnV5Twz1TwUL466Hiw3vOvrw1q9Y96GiEAWZSUMPzLmBEqp5eyml2g4m1Szqy9uIa9B7JiQFvC0748TCoXjQa/zf2PfzfpLh0w7hdQSKr/aBbPYe5+jZyD3sSEp/Zytdgq/RO7MYEbM1WMSteB8auo0K33gFiMTFEvfNXec76pSyCj47KCoolihfp1D8Go8023wwZ38Z6KOCanGhAtq0UZq0rHFPc7qO19xpieoKb+0qMSZwr+2018Z+3RbT07mskwqsv1HV8i2wfdZ6z7unSSuD8XOYEWDGSG3muvrpXLUmwWB+PU0GCpTDj+W4HSf3ANcOaWnd3 core@support.calligan.internal'
