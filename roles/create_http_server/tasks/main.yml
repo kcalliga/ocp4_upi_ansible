@@ -20,7 +20,7 @@
 
 - name: Enabling Port 80/TCP on Public Zone
   firewalld:
-    port: 53/tcp
+    port: 80/tcp
     permanent: yes
     zone: public
     immediate: yes
@@ -28,7 +28,7 @@
 
 - name: Enabling Port 80/TCP on Internal Zone
   firewalld:
-    port: 53/tcp
+    port: 80/tcp
     permanent: yes
     zone: internal
     state: enabled
