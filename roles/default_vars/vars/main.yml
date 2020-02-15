@@ -11,14 +11,14 @@ toplevel_domain: calligan.internal
 last_octet_support_ip: 1
 cluster_basedomain: calligan.name
 cluster_name: test
-rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.18/
-installer_initramfs_file: rhcos-4.2.18-x86_64-installer-initramfs.img
-installer_kernel_file: rhcos-4.2.18-x86_64-installer-kernel
-installer_image_file: rhcos-4.2.18-x86_64-metal-bios.raw.gz
+rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.3/4.3.0/
+installer_initramfs_file: rhcos-4.3.0-x86_64-installer-initramfs.img
+installer_kernel_file: rhcos-4.3.0-x86_64-installer-kernel
+installer_image_file: rhcos-4.3.0-x86_64-metal.raw.gz
 gateway_ip: 192.168.100.1
-oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.2.18/
-oc_client_url: openshift-client-linux-4.2.18.tar.gz
-oc_install_file: openshift-install-linux-4.2.18.tar.gz
+oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.1/
+oc_client_url: openshift-client-linux-4.3.1.tar.gz
+oc_install_file: openshift-install-linux-4.3.1.tar.gz
 CSR_country_name: US
 CSR_organization_name: "Keith Calligan"
 CSR_email_address: kcalliga@redhat.com
@@ -27,7 +27,7 @@ CSR_locality: Levittown
 CSR_organizational_unit_name: None
 htpasswd_docker_user: keith
 local_docker_registry_url: docker-registry.calligan.name
-ocp_release: '4.2.0'         
+ocp_release: '4.3.0-x86_64'         
 local_registry: '{{ local_docker_registry_url }}:5000'      
 local_repository: 'ocp4/openshift4'      
 product_repo: 'openshift-release-dev'      
@@ -38,5 +38,5 @@ dhcp_start_ip: 192.168.100.2
 dhcp_end_ip: 192.168.100.252
 dhcp_netmask: 255.255.255.0
 dhcp_broadcast_address: 192.168.100.255
-artifact_dir=/home/keith
+artifact_dir: /home/keith
 core_ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVcd+iCYI3SASwnV5Twz1TwUL466Hiw3vOvrw1q9Y96GiEAWZSUMPzLmBEqp5eyml2g4m1Szqy9uIa9B7JiQFvC0748TCoXjQa/zf2PfzfpLh0w7hdQSKr/aBbPYe5+jZyD3sSEp/Zytdgq/RO7MYEbM1WMSteB8auo0K33gFiMTFEvfNXec76pSyCj47KCoolihfp1D8Go8023wwZ38Z6KOCanGhAtq0UZq0rHFPc7qO19xpieoKb+0qMSZwr+2018Z+3RbT07mskwqsv1HV8i2wfdZ6z7unSSuD8XOYEWDGSG3muvrpXLUmwWB+PU0GCpTDj+W4HSf3ANcOaWnd3 core@support.calligan.internal'

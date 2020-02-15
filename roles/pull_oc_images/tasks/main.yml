@@ -21,3 +21,6 @@
     url: "{{ oc_files_url }}/{{ oc_client_url }}"
     dest: "{{ artifact_dir }}/{{ oc_client_url }}"
 
+- name: Copy oc client to path
+  shell:
+    cmd: tar -C /usr/local/bin -xvzpf /home/keith/"{{ oc_client_url }}" oc

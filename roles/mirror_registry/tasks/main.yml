@@ -10,16 +10,16 @@
 - name: Generate pull-secret.json file
   template:
     src: templates/pull-secret.json.j2
-    dest: {{ artifact_dir }}/pull-secret.json
+    dest: /home/keith/pull-secret.json
 
 - name: Generate mirror-registry.sh file
   template:
     src: templates/mirror-sync.sh.j2
-    dest: {{ artifact_dir }}/mirror-sync.sh
+    dest: /home/keith/mirror-sync.sh
     mode: 0755
 
 - name: Insert local token in pull secret
   replace:
-    path: {{ artifact_dir }}/pull-secret.json
+    path: /home/keith/pull-secret.json
     regexp: 'replacewithlocaltoken'
     replace: '{{ localtoken.stdout }}'
