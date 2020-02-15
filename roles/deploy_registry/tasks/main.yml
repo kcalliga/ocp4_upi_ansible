@@ -101,5 +101,5 @@
 
 - name: Trust the CA of the Self-Signed Cert
   shell:
-    cmd: update-ca-trust
+    cmd: update-ca-trust extract
 
