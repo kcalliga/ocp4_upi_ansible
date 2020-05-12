@@ -1,21 +1,10 @@
-- name: "Pull OC Client and COREOS Files"
-  hosts: support
-  become: True
-  become_method: sudo
-  become_user: root
-  vars_files:
-    - ./roles/default_vars/vars/secrets.yml
-    - ./roles/default_vars/vars/main.yml
-  roles:
-    - role: pull_oc_images
-    
 - name: "Create DNS Records"
   hosts: support
   become: True
   become_method: sudo
   become_user: root
   vars_files:
-    - ./roles/create_dns_server/vars/main.yml
+    - ./roles/default_vars/vars/main.yml
   roles:
     - role: create_dns_server
 
