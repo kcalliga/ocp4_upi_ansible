@@ -1,12 +1,3 @@
 ---
 # vars file for create_dns_records
 
-forward_dns_zone: "calligan.internal"
-reverse_dns_zone: "100.168.192.in-addr.arpa"
-support_server_ip: 192.168.100.1
-support_server_fqdn: support.calligan.internal
-support_server_short_name: support
-public_dns_ip: 8.8.8.8
-internal_ip_subnet: 192.168.100.0/24
-toplevel_domain: calligan.internal
-last_octet_support_ip: 1
