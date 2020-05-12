@@ -23,4 +23,4 @@
 
 - name: Copy oc client to path
   shell:
-    cmd: tar -C /usr/local/bin -xvzpf /home/keith/"{{ oc_client_url }}" oc
+    cmd: tar -C /usr/local/bin -xvzpf "{{ artifact_dir }}/{{ oc_client_url }}" oc
