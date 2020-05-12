@@ -30,6 +30,17 @@
   roles:
     - role: create_pxe_server
     
+- name: "Install and Start Apache"
+  hosts: support
+  become: True
+  become_method: sudo
+  become_user: root
+  vars_files:
+    - ./roles/default_vars/vars/secrets.yml
+    - ./roles/default_vars/vars/main.yml
+  roles:
+    - role: create_http_server
+    
 - name: "Pull OC Client and COREOS Files"
   hosts: support
   become: True
@@ -51,18 +62,6 @@
     - ./roles/default_vars/vars/main.yml
   roles:
     - role: create_haproxy_server
-
-
-- name: "Install and Start Apache"
-  hosts: support
-  become: True
-  become_method: sudo
-  become_user: root
-  vars_files:
-    - ./roles/default_vars/vars/secrets.yml
-    - ./roles/default_vars/vars/main.yml
-  roles:
-    - role: create_http_server
 
 - name: "Create Install Config"
   hosts: support
