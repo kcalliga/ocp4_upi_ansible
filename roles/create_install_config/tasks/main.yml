@@ -15,4 +15,4 @@
 - name: Create install-config.yaml template
   template:
     src: templates/install-config.yaml.j2
-    dest: /home/keith/install-config.yaml
+    dest: "{{ artifact_dir }}/install-config.yaml"
