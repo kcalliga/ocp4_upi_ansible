@@ -21,6 +21,11 @@
     url: "{{ oc_files_url }}/{{ oc_client_url }}"
     dest: "{{ artifact_dir }}/{{ oc_client_url }}"
 
+- name: Download OC Linux Installer
+  get_url:
+    url: "{{ oc_files_url }}/{{ oc_install_file }}"
+    dest: "{{ artifact_dir }}/{{ oc_install_file }}"
+
 - name: Copy oc client to path
   shell:
     cmd: tar -C /usr/local/bin -xvzpf "{{ artifact_dir }}/{{ oc_client_url }}" oc
