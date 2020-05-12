@@ -60,7 +60,7 @@ mode tcp
 
 option tcplog
 
-bind {{ support_server_ip }}:6443
+bind *:6443
 
 default_backend ocp4-kubernetes-api-server
 
@@ -70,7 +70,7 @@ mode tcp
 
 option tcplog
 
-bind {{ support_server_ip }}:22623
+bind *:22623
 
 default_backend ocp4-machine-config-server
 
