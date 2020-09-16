@@ -1,3 +1,5 @@
+****** THIS CODE HAS BEEN TESTED WITH ANY OF THE 4.X VERSIONS OF OPENSHIFT (MOST RECENTLY 4.5.6)*******
+
 This install has been tested with RHEL 7.7 minimal install being used on the mirror registry and support server (these can be the same server in some cases).  The support server (typically on the restricted network) handles the DHCP, PXE, HTTPD, HAPROXY, and DNS functions needed to pxe boot the bootstrap, masters, and nodes.
 
 After cloning this repository, edit the ./roles/default_vars/vars/main.yml file.  An example with comments is included and called main.yml.example
