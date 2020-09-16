@@ -21,21 +21,21 @@
     path: /opt/registry/auth
     state: directory
     mode: 0755
-    owner: keith
+    owner: root
 
 - name: Create /opt/registry/certs Directory
   file:
     path: /opt/registry/certs
     state: directory
     mode: 0755
-    owner: keith
+    owner: root
 
 - name: Create /opt/registry/data Directory
   file:
     path: /opt/registry/data
     state: directory
     mode: 0755
-    owner: keith
+    owner: root
 
 - name: Generate an OpenSSL private key (4096 bits)
   openssl_privatekey:

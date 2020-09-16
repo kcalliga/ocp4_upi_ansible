@@ -38,6 +38,7 @@
            }; 
   with_items: 
     - "{{ forward_dns_zone }}"
+    - "{{ cluster_basedomain }}"
   become: yes
   become_user: root
   become_method: sudo
@@ -66,6 +67,7 @@
     group: named
   with_items:
     - "{{ forward_dns_zone }}"
+    - "{{ cluster_basedomain }}"
   become: yes
   become_user: root
   become_method: sudo
@@ -133,3 +135,40 @@
     - "{{ groups['workers'] }}"
     - "{{ groups['support'] }}"
     - "{{ groups['bootstrap'] }}"
+
+- name: Add A Record for HAPROXY
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    record: "haproxy"
+    value: "{{ support_server_ip }}"
+
+- name: Add A Record for API-INT
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    record: "api-int"
+    value: "{{ support_server_ip }}"
+
+- name: Add A Record for API
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    record: "api"
+    value: "{{ support_server_ip }}"
+
+- name: Add A Record for Docker Registry
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    record: "docker-registry"
+    value: "{{ support_server_ip }}"
+    state: present
+
+- name: Add App Wildcard
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    record: "*.apps.{{ cluster_name }}"
+    value: "{{ support_server_ip }}"
+    state: present

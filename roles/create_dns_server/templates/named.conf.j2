@@ -18,7 +18,7 @@ options {
 	memstatistics-file "/var/named/data/named_mem_stats.txt";
 	recursing-file  "/var/named/data/named.recursing";
 	secroots-file   "/var/named/data/named.secroots";
-	allow-query     { localhost; {{ internal_ip_subnet }} };
+	allow-query     { localhost; {{ internal_ip_subnet }}; };
         forwarders	{ {{ public_dns_ip }}; };
 
 	/* 
