@@ -9,7 +9,7 @@
 
 - name: display multiple file contents
   shell:
-    cmd: cat /opt/registry/certs/domain.crt
+    cmd: "cat /opt/registry/certs/domain.crt|grep -v CERTIFICATE| tr -d '\n'"
   register: cert
 
 - name: Create install-config.yaml template

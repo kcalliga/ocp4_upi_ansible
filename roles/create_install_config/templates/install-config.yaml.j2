@@ -19,10 +19,13 @@ networking:
   - 172.30.0.0/16
 platform:
   none: {}
+fips: false
 pullSecret: '{"auths":{"{{ local_docker_registry_url }}:5000": {"auth": "{{ localtoken.stdout }}","email": "{{ email }}"}}}'
 sshKey: '{{ core_ssh_public_key }}'
 additionalTrustBundle: |
-{{ cert.stdout | indent( width=2) }}
+  -----BEGIN CERTIFICATE-----  
+{{ cert.stdout | indent( width=2, indentfirst=True) }}
+  -----END CERTIFICATE-----
 imageContentSources:
 - mirrors:
   - {{ local_docker_registry_url }}:5000/{{ local_repository }}
@@ -30,3 +33,4 @@ imageContentSources:
 - mirrors:
   - {{ local_docker_registry_url }}:5000/{{ local_repository }}
   source: quay.io/{{ product_repo }}/ocp-v4.0-art-dev
+
