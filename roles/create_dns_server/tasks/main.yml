@@ -147,14 +147,14 @@
   nsupdate:
     server: "localhost"
     zone: "{{ cluster_basedomain }}"
-    record: "api-int"
+    record: "api-int.{{ cluster_name }}"
     value: "{{ support_server_ip }}"
 
 - name: Add A Record for API
   nsupdate:
     server: "localhost"
     zone: "{{ cluster_basedomain }}"
-    record: "api"
+    record: "apii.{{ cluster_name }}"
     value: "{{ support_server_ip }}"
 
 - name: Add A Record for Docker Registry
@@ -171,4 +171,64 @@
     zone: "{{ cluster_basedomain }}"
     record: "*.apps.{{ cluster_name }}"
     value: "{{ support_server_ip }}"
+    state: present
+
+- name: Add CNAME for ETCD-0 Pointing to Master1
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    type: "CNAME"
+    record: "etcd-0.{{ cluster_name }}.{{ cluster_basedomain }}."
+    value: "{{ hostvars[item]['inventory_hostname'] }}"
+    state: present
+  with_items:
+    - "{{ groups['masters'][0] }}"
+
+- name: Add CNAME for ETCD-1 Pointing to Master2
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    type: CNAME
+    record: "etcd-1.{{ cluster_name }}.{{ cluster_basedomain }}."
+    value: "{{ hostvars[item]['inventory_hostname'] }}."
+    state: present
+  with_items:
+    - "{{ groups['masters'][1] }}"
+
+- name: Add CNAME for ETCD-2 Pointing to Master3
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    type: CNAME 
+    record: "etcd-2.{{ cluster_name }}.{{ cluster_basedomain }}."
+    value: "{{ hostvars[item]['inventory_hostname'] }}."
+    state: present
+  with_items:
+    - "{{ groups['masters'][2] }}"
+
+- name: Add SRV Records for ETCD/First Master
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    type: SRV
+    record: "_etcd-server-ssl._tcp.{{cluster_name }}.{{ cluster_basedomain }}."
+    value: "0 10 2380 etcd-0.{{ cluster_name }}.{{ cluster_basedomain }}."
+    state: present
+
+- name: Add SRV Records for ETCD/Second Master
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    type: SRV
+    record: "_etcd-server-ssl._tcp.{{cluster_name }}.{{ cluster_basedomain }}."
+    value: "0 10 2380 etcd-1.{{ cluster_name }}.{{ cluster_basedomain }}."
+    state: present
+
+- name: Add SRV Records for ETCD/Third Master
+  nsupdate:
+    server: "localhost"
+    zone: "{{ cluster_basedomain }}"
+    type: SRV
+    record: "_etcd-server-ssl._tcp.{{cluster_name }}.{{ cluster_basedomain }}."
+    value: "0 10 2380 etcd-2.{{ cluster_name }}.{{ cluster_basedomain }}."
     state: present
