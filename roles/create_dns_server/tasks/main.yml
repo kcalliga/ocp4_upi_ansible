@@ -206,29 +206,12 @@
   with_items:
     - "{{ groups['masters'][2] }}"
 
-- name: Add SRV Records for ETCD/First Master
+- name: Add SRV Records for ETCD
   nsupdate:
     server: "localhost"
     zone: "{{ cluster_basedomain }}"
     type: SRV
     record: "_etcd-server-ssl._tcp.{{cluster_name }}.{{ cluster_basedomain }}."
-    value: "0 10 2380 etcd-0.{{ cluster_name }}.{{ cluster_basedomain }}."
+    value: value: ["0 10 2380 etcd-0.{{ cluster_name }}.{{ cluster_basedomain }}.", "0 10 2380 etcd-1.{{ cluster_name }}.{{ cluster_basedomain }}.", "0 10 2380 etcd-2.{{ cluster_name }}.{{ cluster_basedomain }}."]
     state: present
 
-- name: Add SRV Records for ETCD/Second Master
-  nsupdate:
-    server: "localhost"
-    zone: "{{ cluster_basedomain }}"
-    type: SRV
-    record: "_etcd-server-ssl._tcp.{{cluster_name }}.{{ cluster_basedomain }}."
-    value: "0 10 2380 etcd-1.{{ cluster_name }}.{{ cluster_basedomain }}."
-    state: present
-
-- name: Add SRV Records for ETCD/Third Master
-  nsupdate:
-    server: "localhost"
-    zone: "{{ cluster_basedomain }}"
-    type: SRV
-    record: "_etcd-server-ssl._tcp.{{cluster_name }}.{{ cluster_basedomain }}."
-    value: "0 10 2380 etcd-2.{{ cluster_name }}.{{ cluster_basedomain }}."
-    state: present
