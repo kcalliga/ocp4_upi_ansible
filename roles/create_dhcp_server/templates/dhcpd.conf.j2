@@ -31,6 +31,7 @@ log-facility local7;
 
 subnet {{ dhcp_subnet }} netmask {{ dhcp_netmask }} {
   range dynamic-bootp {{ dhcp_start_ip }} {{ dhcp_end_ip }};
+  deny unkown-clients;
   option broadcast-address {{ dhcp_broadcast_address }};
 }
 
