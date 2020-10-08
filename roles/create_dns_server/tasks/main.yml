@@ -154,7 +154,7 @@
   nsupdate:
     server: "localhost"
     zone: "{{ cluster_basedomain }}"
-    record: "apii.{{ cluster_name }}"
+    record: "api.{{ cluster_name }}"
     value: "{{ support_server_ip }}"
 
 - name: Add A Record for Docker Registry
@@ -179,7 +179,7 @@
     zone: "{{ cluster_basedomain }}"
     type: "CNAME"
     record: "etcd-0.{{ cluster_name }}.{{ cluster_basedomain }}."
-    value: "{{ hostvars[item]['inventory_hostname'] }}"
+    value: "{{ hostvars[item]['inventory_hostname'] }}."
     state: present
   with_items:
     - "{{ groups['masters'][0] }}"
