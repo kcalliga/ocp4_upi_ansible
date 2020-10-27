@@ -19,20 +19,6 @@ gateway_ip: 192.168.100.1
 oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.5/
 oc_client_url: openshift-client-linux.tar.gz
 oc_install_file: openshift-install-linux.tar.gz
-CSR_country_name: US
-CSR_organization_name: "Keith Calligan"
-CSR_email_address: kcalliga@redhat.com
-CSR_state: Pennsylvania
-CSR_locality: Levittown
-CSR_organizational_unit_name: None
-htpasswd_docker_user: keith
-local_docker_registry_url: docker-registry.{{ forward_dns_zone }}
-ocp_release: '4.3.0-x86_64'         
-local_registry: '{{ local_docker_registry_url }}:5000'      
-local_repository: 'ocp4/openshift4'      
-product_repo: 'openshift-release-dev'      
-local_secret_json_filename: 'pull-secret.json'      
-release_name: "ocp-release"
 dhcp_subnet: 192.168.200.0
 dhcp_start_ip: 192.168.200.2
 dhcp_end_ip: 192.168.200.252
@@ -40,3 +26,18 @@ dhcp_netmask: 255.255.255.0
 dhcp_broadcast_address: 192.168.200.255
 artifact_dir: /home/ansible
 core_ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC044x63FgH2PgPqi0gFEZTyVAu0Fue0hYWzXptpigff8juZGBEommvBwKHhsU/Q418Lw8tRCSEVbJH5KBVXT4GJqFhDJ3YocX4Nd5GfAZ4cU1R5BJPJzmK1bSBE2xBkaZqDHr9JiysvE+udh6UaLSzJ3Es6dIxvHHW5CB0a8uoamQUPoLSOkFtkcMvbaIm+2JEitEuSoyzIufCWnSM/F31C1t0y6PNDiiioFXkqPFmGYn6chU5pfXuxs4AzVKB2bU2OptLk9B0zEhCXZdtbbKfRQJm6iAii/8cnPz7aUEA4U9KshWaiz+KDlD/VnlOOk1u8Q0dkmi9qPPbVjvzWRG3 ansible@support4.calligan.name'
+# These variables below are for disconnected installs where the support server is also a docker registry
+#CSR_country_name: US
+#CSR_organization_name: "Keith Calligan"
+#CSR_email_address: kcalliga@redhat.com
+#CSR_state: Pennsylvania
+#CSR_locality: Levittown
+#CSR_organizational_unit_name: None
+#htpasswd_docker_user: keith
+#local_docker_registry_url: docker-registry.{{ forward_dns_zone }}
+#ocp_release: '4.3.0-x86_64'         
+#local_registry: '{{ local_docker_registry_url }}:5000'      
+#local_repository: 'ocp4/openshift4'      
+#product_repo: 'openshift-release-dev'      
+#local_secret_json_filename: 'pull-secret.json'      
+#release_name: "ocp-release"
