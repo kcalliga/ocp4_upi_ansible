@@ -102,4 +102,7 @@
 - name: Trust the CA of the Self-Signed Cert
   shell:
     cmd: update-ca-trust extract
-
+    
+- name: Append domain.crt to tls-ca-bundle.pem  
+  shell:
+    cmd: cat /opt/registry/certs/domain.crt >> /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
