@@ -33,7 +33,6 @@ core_ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC044x63FgH2PgPqi0gFE
 #CSR_state: Pennsylvania
 #CSR_locality: Levittown
 #CSR_organizational_unit_name: None
-#htpasswd_docker_user: keith
 #local_docker_registry_url: docker-registry.{{ forward_dns_zone }}
 #ocp_release: '4.3.0-x86_64'         
 #local_registry: '{{ local_docker_registry_url }}:5000'      
