@@ -1,23 +1,3 @@
 ---
 # defaults file for 42_ansible
-cluster_basedomain: calligan.name
-cluster_name: test
-rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.0/
-installer_initramfs_file: rhcos-4.2.0-x86_64-installer-initramfs.img
-installer_kernel_file: rhcos-4.2.0-x86_64-installer-kernel
-installer_image_file: rhcos-4.2.0-x86_64-metal-bios.raw.gz
-local_docker_registry_url: docker-registry.calligan.name
-named_forward_zone_file:
-named_reverse_zone_file:
-gateway_ip: 192.168.100.1
-oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.2/
-oc_client_url: openshift-client-linux-4.2.16.tar.gz
-oc_install_file: openshift-install-linux-4.2.16.tar.gz
-CSR_country_name: US
-CSR_organization_name: "Keith Calligan"
-CSR_email_address: kcalliga@redhat.com
-CSR_state: Pennsylvania
-CSR_locality: Levittown
-CSR_organizational_unit_name: None
-htpasswd_docker_user: keith
 
