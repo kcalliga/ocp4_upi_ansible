@@ -3,7 +3,7 @@
 
 - name: Get Base64 Encoded Token for Local Registry
   shell:
-    cmd: echo -n "{{ local_registry_username }}":"{{ local_registry_password }}"| base64 -w0
+    cmd: echo -n "{{ htpasswd_docker_user }}":"{{ htpasswd_docker_password }}"| base64 -w0
   register: localtoken
 
 
