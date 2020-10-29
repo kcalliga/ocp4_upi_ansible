@@ -97,7 +97,7 @@
 
 - name: Copy Self-Signed Cert to Anchors Directory
   shell:
-    cmd: cp /opt/registry/certs/domain.crt /etc/pki/ca-trust/source/anchors/
+    cmd: cp /opt/registry/certs/domain.crt /etc/pki/ca-trust/source/anchors/new.crt
 
 - name: Trust the CA of the Self-Signed Cert
   shell:
