@@ -1,6 +1,11 @@
 ---
 # tasks file for 42_ansible
 
+
+- name: Remove Old Instance of /opt/registry directory if it exists from previous run
+  shell:
+    cmd: rm -rf /opt/registry
+    
 - name: install the latest version of httpd-tools
   yum:
     name: httpd-tools
