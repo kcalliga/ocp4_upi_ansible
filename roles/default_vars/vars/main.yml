@@ -14,7 +14,7 @@ cluster_name: test
 rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.5/4.5.6/
 installer_initramfs_file: rhcos-installer-initramfs.x86_64.img
 installer_kernel_file: rhcos-installer-kernel-x86_64
-installer_image_file: rhcos-installer-initramfs.x86_64.img
+installer_image_file: rhcos-metal.x86_64.raw.gz
 gateway_ip: 192.168.100.1
 oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.5/
 oc_client_url: openshift-client-linux.tar.gz
