@@ -16,10 +16,10 @@
   template:
     src: templates/install-config.yaml.j2
     dest: "{{ artifact_dir }}/install-config.yaml"
-  when: disconnected=true
+  when: disconnected == 'true'
 
 - name: Create install-config.yaml template - Connected
   template:
     src: templates/install-config-connected.yaml.j2
     dest: "{{ artifact_dir }}/install-config.yaml"
-  when: disconnected=false
+  when: disconnected == 'false'
