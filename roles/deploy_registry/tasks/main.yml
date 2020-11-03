@@ -1,7 +1,14 @@
 ---
 # tasks file for 42_ansible
 
-
+- name: Stop Any Old Instances of Docker Registy Container
+  shell: 
+    cmd: podman stop `sudo podman ps -a| grep mirror-registry| awk '{ print $1 }'`
+    
+ - name: Stop Any Old Instances of Docker Registy Container
+  shell: 
+    cmd: podman rm `sudo podman ps -a| grep mirror-registry| awk '{ print $1 }'`
+    
 - name: Remove Old Instance of /opt/registry directory if it exists from previous run
   shell:
     cmd: rm -rf /opt/registry
