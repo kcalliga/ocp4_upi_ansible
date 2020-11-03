@@ -42,12 +42,41 @@
     mode: 0755
     owner: root
 
-- name: Generate an OpenSSL private key (4096 bits)
+- name: Generate an OpenSSL private key for Registry
   openssl_privatekey:
     path: /opt/registry/certs/domain.key
     size: 4096
 
-- name: Generate an OpenSSL Certificate Signing Request with Subject information
+- name: Generate an OpenSSL private key for CA
+  openssl_privatekey:
+    path: /opt/registry/certs/ca.key
+    size: 4096
+
+- name: Generate an OpenSSL Certificate Signing Request with Subject information for CA
+  openssl_csr:
+    path: /opt/registry/certs/ca.csr
+    privatekey_path: /opt/registry/certs/ca.key
+    country_name: "{{ CSR_country_name }}"
+    organizational_unit_name: "{{ CSR_organizational_unit_name }}"
+    organization_name: "{{ CSR_organization_name }}"
+    email_address: "{{ CSR_email_address }}"
+    common_name: "Docker-Registry-CA"
+    basic_constraints: 
+      - CA:TRUE
+
+- name: Generate a Self Signed OpenSSL certificate for CA
+  openssl_certificate:
+    path: /opt/registry/certs/ca.crt
+    privatekey_path: /opt/registry/certs/ca.key
+    csr_path: /opt/registry/certs/ca.csr
+    provider: selfsigned
+    key_usage:
+      - critical
+      - keyCertSign
+      - cRLSign
+    key_usage_strict: true
+
+- name: Generate an OpenSSL Certificate Signing Request for Docker Registry
   openssl_csr:
     path: /opt/registry/certs/domain.csr
     privatekey_path: /opt/registry/certs/domain.key
@@ -59,12 +88,13 @@
     state_or_province_name: "{{ CSR_state }}"
     locality_name: "{{ CSR_locality }}"
 
-- name: Generate a Self Signed OpenSSL certificate
+- name: Generate an OpenSSL certificate Signed by Docker Registry CA
   openssl_certificate:
     path: /opt/registry/certs/domain.crt
-    privatekey_path: /opt/registry/certs/domain.key
     csr_path: /opt/registry/certs/domain.csr
-    provider: selfsigned
+    ownca_path: /opt/registry/certs/ca.crt
+    ownca_privatekey_path: /opt/registry/certs/ca.key
+    provider: ownca
 
 #- name: Create htpasswd username and password for 4.2 Install Registry Mirror
 #  htpasswd:
@@ -100,14 +130,14 @@
 #    state: enabled
 #    immediate: yes
 
-- name: Copy Self-Signed Cert to Anchors Directory
+- name: Copy CA Cert to Anchors Directory
   shell:
-    cmd: cp /opt/registry/certs/domain.crt /etc/pki/ca-trust/source/anchors/new.crt
+    cmd: cp /opt/registry/certs/ca.crt /etc/pki/ca-trust/source/anchors/ca.crt
 
 - name: Trust the CA of the Self-Signed Cert
   shell:
     cmd: update-ca-trust extract
     
-- name: Append domain.crt to tls-ca-bundle.pem  
-  shell:
-    cmd: cat /opt/registry/certs/domain.crt >> /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+#- name: Append domain.crt to tls-ca-bundle.pem  
+#  shell:
+#    cmd: cat /opt/registry/certs/domain.crt >> /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
