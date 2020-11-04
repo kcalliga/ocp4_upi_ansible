@@ -4,12 +4,12 @@
 - name: Stop Any Old Instances of Docker Registy Container
   shell: 
     cmd: podman stop `sudo podman ps -a| grep mirror-registry| awk '{ print $1 }'`
-  ignore_errors: yes
+  ignore_errors: true
   
 - name: Remove Any Old Instances of Docker Registy Container
   shell: 
     cmd: podman rm `sudo podman ps -a| grep mirror-registry| awk '{ print $1 }'`
-  ignore_errors: yes
+  ignore_errors: true
   
 - name: Remove Old Instance of /opt/registry directory if it exists from previous run
   shell:
