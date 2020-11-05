@@ -37,7 +37,10 @@ if [[ $response == "y" || $response == "Y" ]]; then
 	sed -i "s/mastersSchedulable: true/mastersSchedulable: false/g" /home/ansible/openshift_install/manifests/cluster-scheduler-02-config.yml 
 else
 	echo -n "Master nodes will be schedulable"
+        echo "****************Reconfiguring HAPROXY*********************"
+        ansible-playbook -i inventory reconfigure_haproxy_for_masters.yml -e mastersSchedulable=true  --ask-vault-pass
 fi
+
 openshift-install create ignition-configs --dir=/home/ansible/openshift_install
 
 if [[ $dis_response == "y" || $dis_response == "Y" ]]; then
