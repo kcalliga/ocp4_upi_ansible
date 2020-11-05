@@ -1,0 +1,43 @@
+---
+# vars file for default_vars
+forward_dns_zone: %%forward_dns_zone%%
+reverse_dns_zone: %%reverse_dns_zone%%
+support_server_ip: %%support_server_ip%%
+support_server_fqdn: %%support_server_fqdn%%
+support_server_short_name: %%support_server_short_name%%
+public_dns_ip: 8.8.8.8
+internal_ip_subnet: %%internal_ip_subnet%%
+toplevel_domain: %%toplevel_domain%%
+last_octet_support_ip: 1
+cluster_basedomain: %%cluster_basedomain%%
+cluster_name: %%cluster_name%%
+rhcos_mirror: %%rhcos_mirror%%
+installer_initramfs_file: %%installer_initramfs_file%%
+installer_kernel_file: %%installer_kernel_file%%
+installer_image_file: %%installer_image_file%%
+gateway_ip: %%gateway_ip%%
+oc_files_url: %%oc_files_url%%
+oc_client_url: openshift-client-linux.tar.gz
+oc_install_file: openshift-install-linux.tar.gz
+dhcp_subnet: %%dhcp_subnet%%
+dhcp_start_ip: %%dhcp_start_ip%%
+dhcp_end_ip: %%dhcp_end_ip%%
+dhcp_netmask: %%dhcp_netmask%%
+dhcp_broadcast_address: %%dhcp_broadcast_address%%
+artifact_dir: /home/ansible
+core_ssh_public_key: %%core_ssh_public_key%%
+
+# These variables below are for disconnected installs where the support server is also a docker registry
+#CSR_country_name: US
+#CSR_organization_name: %%CSR_organization_name%%
+#CSR_email_address: %%CSR_email_address%%
+#CSR_state: %%CSR_state%%
+#CSR_locality: %%CSR_locality%%
+#CSR_organizational_unit_name: None
+#local_docker_registry_url: docker-registry.{{ forward_dns_zone }}
+#ocp_release: %%ocp_release%%         
+#local_registry: '{{ local_docker_registry_url }}:5000'      
+#local_repository: 'ocp4/openshift4'      
+#product_repo: 'openshift-release-dev'      
+#local_secret_json_filename: 'pull-secret.json'      
+#release_name: 'ocp-release'
