@@ -76,6 +76,7 @@
     src: haproxy-masters-schedulable.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
   when: mastersSchedulable == 'true'
+  ignore_errors: true
   
 - name: Make sure HAPROXY Is Reloaded
   systemd:
