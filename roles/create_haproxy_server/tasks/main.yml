@@ -70,7 +70,13 @@
   template:
     src: templates/haproxy.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
-
+    
+- name: Regenerate HAPROXY Config If Masters are Schedulable
+  template:
+    src: haproxy-masters-schedulable.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  when: mastersSchedulable == 'true'
+  
 - name: Make sure HAPROXY Is Reloaded
   systemd:
     state: reloaded
