@@ -1,7 +1,7 @@
 $TTL	86400 ; 24 hours could have been written as 24h or 1d
 ; $TTL used for all RRs without explicit TTL value
 $ORIGIN {{ toplevel_domain }}.
-@  1D  IN  SOA {{ support_server_fqdn }}. hostmaster.{{ toplevel_domain }}. (
+@  1D  IN  SOA {{ support_server_short_name }}.{{ toplevel_domain }}. hostmaster.{{ toplevel_domain }}. (
 			      2020021101 ; serial
 			      3H ; refresh
 			      15 ; retry
