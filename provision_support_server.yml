@@ -63,27 +63,27 @@
   roles:
     - role: pull_oc_images
 
-- name: "Deploy Registry"
-  hosts: support
-  become: True
-  become_method: sudo
-  become_user: root
-  vars_files:
-    - ./roles/default_vars/vars/main.yml
-    - ./roles/default_vars/vars/secrets.yml
-  roles:
-    - role: deploy_registry
+#- name: "Deploy Registry"
+#  hosts: support
+#  become: True
+#  become_method: sudo
+#  become_user: root
+#  vars_files:
+#    - ./roles/default_vars/vars/main.yml
+#    - ./roles/default_vars/vars/secrets.yml
+#  roles:
+#    - role: deploy_registry
 
-- name: "Mirror Registry"
-  hosts: support
-  become: True
-  become_method: sudo
-  become_user: root
-  vars_files:
-    - ./roles/default_vars/vars/main.yml
-    - ./roles/default_vars/vars/secrets.yml
-  roles:
-    - role: mirror_registry
+#- name: "Mirror Registry"
+#  hosts: support
+#  become: True
+#  become_method: sudo
+#  become_user: root
+#  vars_files:
+#    - ./roles/default_vars/vars/main.yml
+#    - ./roles/default_vars/vars/secrets.yml
+#  roles:
+#    - role: mirror_registry
 
 - name: "Create Install Config"
   hosts: support
