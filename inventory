@@ -9,7 +9,7 @@ worker2.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:51:5c ip_address=1
 worker3.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:4d:4e ip_address=192.168.100.8 short_name=worker3
 
 [support]
-support.calligan.internal mac_address= ip_address=192.168.100.1 short_name=support 
+support.ansible.ocp-poc-demo.internal mac_address= ip_address=192.168.100.1 short_name=support 
 
 [bootstrap]
 bootstrap.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:93:e2 ip_address=192.168.100.2 short_name=bootstrap
