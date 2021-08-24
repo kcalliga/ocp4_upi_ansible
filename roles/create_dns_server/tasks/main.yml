@@ -38,7 +38,6 @@
            }; 
   with_items: 
     - "{{ forward_dns_zone }}"
-    - "{{ cluster_basedomain }}"
   become: yes
   become_user: root
   become_method: sudo
@@ -139,28 +138,28 @@
 - name: Add A Record for HAPROXY
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
+    zone: "{{ forward_dns_zone }}"
     record: "haproxy"
     value: "{{ support_server_ip }}"
 
 - name: Add A Record for API-INT
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
-    record: "api-int.{{ cluster_name }}"
+    zone: "{{ forward_dns_zone }}"
+    record: "api-int"
     value: "{{ support_server_ip }}"
 
 - name: Add A Record for API
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
-    record: "api.{{ cluster_name }}"
+    zone: "{{ forward_dns_zone }}"
+    record: "api"
     value: "{{ support_server_ip }}"
 
 - name: Add A Record for Docker Registry
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
+    zone: "{{ forward_dns_zone }}"
     record: "docker-registry"
     value: "{{ support_server_ip }}"
     state: present
@@ -168,17 +167,17 @@
 - name: Add App Wildcard
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
-    record: "*.apps.{{ cluster_name }}"
+    zone: "{{ forward_dns_zone }}"
+    record: "*.apps"
     value: "{{ support_server_ip }}"
     state: present
 
 - name: Add CNAME for ETCD-0 Pointing to Master1
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
+    zone: "{{ forward_dns_zone }}"
     type: "CNAME"
-    record: "etcd-0.{{ cluster_name }}.{{ cluster_basedomain }}."
+    record: "etcd-0"
     value: "{{ hostvars[item]['inventory_hostname'] }}."
     state: present
   with_items:
@@ -187,9 +186,9 @@
 - name: Add CNAME for ETCD-1 Pointing to Master2
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
+    zone: "{{ forward_dns_zone }}"
     type: CNAME
-    record: "etcd-1.{{ cluster_name }}.{{ cluster_basedomain }}."
+    record: "etcd-1"
     value: "{{ hostvars[item]['inventory_hostname'] }}."
     state: present
   with_items:
@@ -198,9 +197,9 @@
 - name: Add CNAME for ETCD-2 Pointing to Master3
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
+    zone: "{{ forward_dns_zone }}"
     type: CNAME 
-    record: "etcd-2.{{ cluster_name }}.{{ cluster_basedomain }}."
+    record: "etcd-2"
     value: "{{ hostvars[item]['inventory_hostname'] }}."
     state: present
   with_items:
@@ -209,9 +208,8 @@
 - name: Add SRV Records for ETCD
   nsupdate:
     server: "localhost"
-    zone: "{{ cluster_basedomain }}"
+    zone: "{{ forward_dns_zone }}"
     type: SRV
-    record: "_etcd-server-ssl._tcp.{{cluster_name }}.{{ cluster_basedomain }}."
-    value: ["0 10 2380 etcd-0.{{ cluster_name }}.{{ cluster_basedomain }}.", "0 10 2380 etcd-1.{{ cluster_name }}.{{ cluster_basedomain }}.", "0 10 2380 etcd-2.{{ cluster_name }}.{{ cluster_basedomain }}."]
+    record: "_etcd-server-ssl._tcp.{{ forward_dns_zone }}."
+    value: ["0 10 2380 etcd-0.{{ forward_dns_zone }}.", "0 10 2380 etcd-1.{{ forward_dns_zone }}.", "0 10 2380 etcd-2.{{ forward_dns_zone }}."]
     state: present
-
