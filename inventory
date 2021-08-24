@@ -1,15 +1,15 @@
 [masters]
-master1.calligan.internal mac_address=00:0c:19:b4:cc:72 ip_address=192.168.200.3 short_name=master1
-master2.calligan.internal mac_address=00:0c:19:93:ff:ed ip_address=192.168.200.4 short_name=master2
-master3.calligan.internal mac_address=00:0c:19:c9:ad:57 ip_address=192.168.200.5 short_name=master3
+master1.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:96:4d ip_address=192.168.100.3 short_name=master1
+master2.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:6c:10 ip_address=192.168.100.4 short_name=master2
+master3.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:cf:0e ip_address=192.168.100.5 short_name=master3
 
 [workers]
-node1.calligan.internal mac_address=00:0c:19:53:6c:da ip_address=192.168.200.6 short_name=worker1
-node2.calligan.internal mac_address=00:0c:19:3d:61:b6 ip_address=192.168.200.7 short_name=worker2
+worker1.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:cb:e7 ip_address=192.168.100.6 short_name=worker1
+worker2.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:51:5c ip_address=192.168.100.7 short_name=worker2
+worker3.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:4d:4e ip_address=192.168.100.8 short_name=worker3
 
 [support]
-support4.calligan.name mac_address= ip_address=192.168.200.1 short_name=support 
+support.calligan.internal mac_address= ip_address=192.168.100.1 short_name=support 
 
 [bootstrap]
-bootstrap.calligan.internal mac_address=00:0c:19:c4:51:68 ip_address=192.168.200.2 short_name=bootstrap
-
+bootstrap.ansible.ocp-poc-demo.internal mac_address=00:50:56:8c:93:e2 ip_address=192.168.100.2 short_name=bootstrap
