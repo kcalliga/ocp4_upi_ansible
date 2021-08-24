@@ -1,20 +1,20 @@
 ---
 # tasks file for pull_coreos_images
 
-- name: Download Installer InitRamFS
+- name: Download Installer Live InitRamFS
   get_url:
-    url: "{{ rhcos_mirror }}/{{ installer_initramfs_file }}"
-    dest: "/var/lib/tftpboot/pxelinux/{{ installer_initramfs_file }}"
+    url: "{{ rhcos_mirror }}/{{ installer_initramfs_live_file }}"
+    dest: "/var/lib/tftpboot/pxelinux/{{ installer_initramfs_live_file }}"
 
-- name: Download Installer Kernel File
+- name: Download Installer Live Kernel File
   get_url:
-    url: "{{ rhcos_mirror }}/{{ installer_kernel_file }}"
-    dest: "/var/lib/tftpboot/pxelinux/{{ installer_kernel_file }}"
+    url: "{{ rhcos_mirror }}/{{ installer_kernel_live_file }}"
+    dest: "/var/lib/tftpboot/pxelinux/{{ installer_kernel_live_file }}"
 
-- name: Download Metal BIOS Image
+- name: Download Live RootFS File
   get_url:
-    url: "{{ rhcos_mirror }}/{{ installer_image_file }}"
-    dest: "/var/www/html/{{ installer_image_file }}"
+    url: "{{ rhcos_mirror }}/{{ installer_liverootfs_file }}"
+    dest: "/var/www/html/{{ installer_liverootfs_file }}"
 
 - name: Download OC Linux Client
   get_url:
