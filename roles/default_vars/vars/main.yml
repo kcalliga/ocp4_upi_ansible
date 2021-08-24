@@ -1,29 +1,29 @@
 ---
 # vars file for default_vars
-forward_dns_zone: 'calligan.internal'
+forward_dns_zone: 'ocp-poc-demo.internal'
 reverse_dns_zone: "100.168.192.in-addr.arpa"
-support_server_ip: 192.168.200.1
+support_server_ip: 192.168.100.1
 support_server_fqdn: support.calligan.internal
 support_server_short_name: support
 public_dns_ip: 8.8.8.8
-internal_ip_subnet: 192.168.200.0/24
-toplevel_domain: calligan.internal
+internal_ip_subnet: 192.168.100.0/24
+toplevel_domain: ocp-poc-demo.internal
 last_octet_support_ip: 1
-cluster_basedomain: calligan.internal
-cluster_name: test
-rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.5/4.5.6/
-installer_initramfs_file: rhcos-installer-initramfs.x86_64.img
-installer_kernel_file: rhcos-installer-kernel-x86_64
-installer_image_file: rhcos-metal.x86_64.raw.gz
+cluster_basedomain: ocp-poc-demo.internal
+cluster_name: ansible
+rhcos_mirror: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.8/latest/
+installer_initramfs_live_file: rhcos-live-initramfs.x86_64.img
+installer_kernel_live_file: rhcos-live-kernel-x86_64
+installer_liverootfs_file: rhcos-live-rootfs.x86_64.img
 gateway_ip: 192.168.100.1
-oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.5/
+oc_files_url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.8/
 oc_client_url: openshift-client-linux.tar.gz
 oc_install_file: openshift-install-linux.tar.gz
-dhcp_subnet: 192.168.200.0
-dhcp_start_ip: 192.168.200.2
-dhcp_end_ip: 192.168.200.252
+dhcp_subnet: 192.168.100.0
+dhcp_start_ip: 192.168.100.2
+dhcp_end_ip: 192.168.100.252
 dhcp_netmask: 255.255.255.0
-dhcp_broadcast_address: 192.168.200.255
+dhcp_broadcast_address: 192.168.100.255
 artifact_dir: /home/ansible
 core_ssh_public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC044x63FgH2PgPqi0gFEZTyVAu0Fue0hYWzXptpigff8juZGBEommvBwKHhsU/Q418Lw8tRCSEVbJH5KBVXT4GJqFhDJ3YocX4Nd5GfAZ4cU1R5BJPJzmK1bSBE2xBkaZqDHr9JiysvE+udh6UaLSzJ3Es6dIxvHHW5CB0a8uoamQUPoLSOkFtkcMvbaIm+2JEitEuSoyzIufCWnSM/F31C1t0y6PNDiiioFXkqPFmGYn6chU5pfXuxs4AzVKB2bU2OptLk9B0zEhCXZdtbbKfRQJm6iAii/8cnPz7aUEA4U9KshWaiz+KDlD/VnlOOk1u8Q0dkmi9qPPbVjvzWRG3 ansible@support4.calligan.name'
 # These variables below are for disconnected installs where the support server is also a docker registry
